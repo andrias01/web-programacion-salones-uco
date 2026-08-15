@@ -1,0 +1,111 @@
+/**
+ * Sample reservation data for quick demo and preview
+ */
+
+export const SAMPLE_RESERVATIONS = [
+  {
+    id: 'demo-1',
+    rowIndex: 1,
+    idMateria: 'MAT101',
+    nroidenti: '1037645210',
+    profesor: 'GARCIA PEREZ CARLOS ALBERTO',
+    dia: 'LUNES',
+    horarioStr: '07:00 A 09:00',
+    startHour: 7,
+    endHour: 9,
+    aula: 'CO201',
+    facultad: 'FACULTAD DE INGENIERÍA',
+    materia: 'CÁLCULO DIFERENCIAL',
+    fecha: '18/08/2026'
+  },
+  {
+    id: 'demo-2',
+    rowIndex: 2,
+    idMateria: 'SIS204',
+    nroidenti: '1037645210',
+    profesor: 'GARCIA PEREZ CARLOS ALBERTO',
+    dia: 'MIÉRCOLES',
+    horarioStr: '07:00 A 09:00',
+    startHour: 7,
+    endHour: 9,
+    aula: 'CO201',
+    facultad: 'FACULTAD DE INGENIERÍA',
+    materia: 'ESTRUCTURAS DE DATOS',
+    fecha: '20/08/2026'
+  },
+  {
+    id: 'demo-3',
+    rowIndex: 3,
+    idMateria: 'ADM105',
+    nroidenti: '71928341',
+    profesor: 'LOPEZ MEJIA MARIA ELENA',
+    dia: 'LUNES',
+    horarioStr: '09:00 A 11:00',
+    startHour: 9,
+    endHour: 11,
+    aula: 'CO201',
+    facultad: 'CIENCIAS ECONÓMICAS Y ADMINISTRATIVAS',
+    materia: 'PRINCIPIOS DE ADMINISTRACIÓN',
+    fecha: '18/08/2026'
+  },
+  {
+    id: 'demo-4',
+    rowIndex: 4,
+    idMateria: 'DER302',
+    nroidenti: '43981240',
+    profesor: 'RESTREPO ZAPATA JUAN DAVID',
+    dia: 'MARTES',
+    horarioStr: '08:00 A 10:00',
+    startHour: 8,
+    endHour: 10,
+    aula: 'E1',
+    facultad: 'FACULTAD DE DERECHO',
+    materia: 'DERECHO CONSTITUCIONAL',
+    fecha: '19/08/2026'
+  },
+  {
+    id: 'demo-5',
+    rowIndex: 5,
+    idMateria: 'PSIC110',
+    nroidenti: '1017192830',
+    profesor: 'GOMEZ ARBOLEDA DIANA PATRICIA',
+    dia: 'LUNES',
+    horarioStr: '14:00 A 16:00',
+    startHour: 14,
+    endHour: 16,
+    aula: 'E2',
+    facultad: 'FACULTAD DE CIENCIAS SOCIALES',
+    materia: 'PSICOLOGÍA EVOLUTIVA',
+    fecha: '18/08/2026'
+  },
+  {
+    id: 'demo-6',
+    rowIndex: 6,
+    idMateria: 'ING408',
+    nroidenti: '98451230',
+    profesor: 'TORRES HENAO ANDRES FELIPE',
+    dia: 'JUEVES',
+    horarioStr: '10:00 A 12:00',
+    startHour: 10,
+    endHour: 12,
+    aula: 'LAB 1',
+    facultad: 'FACULTAD DE INGENIERÍA',
+    materia: 'REDES DE COMUNICACIÓN',
+    fecha: '21/08/2026'
+  },
+  {
+    id: 'demo-7',
+    rowIndex: 7,
+    idMateria: 'MED201',
+    nroidenti: '32190845',
+    profesor: 'ALVAREZ RUIZ GLORIA STELLA',
+    dia: 'VIERNES',
+    horarioStr: '07:00 A 10:00',
+    startHour: 7,
+    endHour: 10,
+    aula: 'M-208',
+    facultad: 'FACULTAD DE CIENCIAS DE LA SALUD',
+    materia: 'ANATOMÍA HUMANA',
+    fecha: '22/08/2026'
+  }
+];
