@@ -32,6 +32,9 @@ import {
   getCachedReservations
 } from './utils/googleSheetsApi';
 
+import { copyTextToClipboard } from './utils/clipboard';
+import { SOURCE_LINK } from './config/appConfig';
+
 import { SAMPLE_RESERVATIONS } from './data/sampleData';
 
 export function App() {
@@ -76,6 +79,16 @@ export function App() {
     setTimeout(() => {
       setToast(prev => (prev?.message === message ? null : prev));
     }, 4000);
+  };
+
+  // Copies the hidden data-source link (triggered from the header logo)
+  const handleCopySourceLink = async () => {
+    const copied = await copyTextToClipboard(SOURCE_LINK);
+    showToast(
+      copied ? 'Enlace copiado al portapapeles' : 'No se pudo copiar el enlace en este navegador',
+      copied ? 'success' : 'error'
+    );
+    return copied;
   };
 
   // Sync from Google Sheets
@@ -348,6 +361,7 @@ export function App() {
         onOpenSheetsModal={() => setIsSheetsModalOpen(true)}
         onSyncNow={() => syncWithGoogleSheets()}
         onFileUpload={handleExcelUpload}
+        onCopySourceLink={handleCopySourceLink}
       />
 
       {/* Drag and Drop Zone */}

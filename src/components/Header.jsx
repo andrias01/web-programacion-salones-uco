@@ -6,9 +6,20 @@ export function Header({
   lastSyncTime,
   onOpenSheetsModal,
   onSyncNow,
-  onFileUpload
+  onFileUpload,
+  onCopySourceLink
 }) {
   const fileInputRef = React.useRef(null);
+  const [justCopied, setJustCopied] = React.useState(false);
+
+  const handleBrandClick = async () => {
+    if (!onCopySourceLink) return;
+    const copied = await onCopySourceLink();
+    if (copied) {
+      setJustCopied(true);
+      setTimeout(() => setJustCopied(false), 1600);
+    }
+  };
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -19,9 +30,15 @@ export function Header({
   return (
     <header className="app-header">
       <div className="brand">
-        <div className="brand-icon">
-          <i className="fa-solid fa-calendar-days"></i>
-        </div>
+        <button
+          type="button"
+          className={`brand-icon brand-icon-btn ${justCopied ? 'copied' : ''}`}
+          onClick={handleBrandClick}
+          title="Copiar enlace"
+          aria-label="Copiar enlace de la fuente de datos"
+        >
+          <i className={`fa-solid ${justCopied ? 'fa-check' : 'fa-calendar-days'}`}></i>
+        </button>
         <div className="brand-title">
           <h1>Disponibilidad de Aulas</h1>
           <p>Analizador y Gestor de Programación de Reservas Académicas</p>

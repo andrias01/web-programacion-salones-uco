@@ -1716,3 +1716,26 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 6px;
   }
 }
+
+/* Clickable brand logo: copies the hidden data-source link */
+.brand-icon-btn {
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.brand-icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.5);
+}
+
+.brand-icon-btn:active {
+  transform: scale(0.95);
+}
+
+.brand-icon-btn.copied {
+  background: linear-gradient(135deg, var(--status-available), #059669);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+}
