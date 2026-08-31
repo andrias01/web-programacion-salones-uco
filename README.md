@@ -16,11 +16,12 @@ Diseñada con estética **Glassmorphism Dark**, optimizada para rendimiento y li
   - Persistencia en `localStorage` para recordar la hoja y cargar datos al instante.
 - **📁 Soporte para Archivos Excel Locales**:
   - Arrastra y suelta (Drag & Drop) o selecciona archivos `.xls`, `.xlsx` o `.csv` (como `Principal.xls`).
-- **🗂️ 4 Vistas de Disponibilidad**:
+- **🗂️ 5 Vistas de Disponibilidad**:
   1. **Matriz de Disponibilidad**: Rejilla horaria completa con código de colores por facultad y detección de espacios libres vs ocupados.
-  2. **Cronograma por Aula**: Tarjetas individuales por salón con barra y porcentaje de ocupación.
-  3. **Lista de Reservas**: Tabla detallada con paginación y búsqueda.
-  4. **Horario Profesor**: Horario semanal tipo cuadrícula (Lunes a Domingo) con exportación instantánea en **PDF**.
+  2. **Franjas Disponibles**: Barra visual por salón que muestra de un vistazo los tramos continuos libres (verde) y ocupados (rojo), con chips de horario del tipo `07:00 a 14:00 · 7h`.
+  3. **Cronograma por Aula**: Tarjetas individuales por salón con barra y porcentaje de ocupación.
+  4. **Lista de Reservas**: Tabla detallada con paginación y búsqueda.
+  5. **Horario Profesor**: Horario semanal tipo cuadrícula (Lunes a Domingo) con exportación instantánea en **PDF**.
 - **🔍 Filtros en Tiempo Real**:
   - Días de la semana (Lunes a Domingo o Todos los Días).
   - Fechas específicas con detección automática del día de la semana.
@@ -28,6 +29,22 @@ Diseñada con estética **Glassmorphism Dark**, optimizada para rendimiento y li
   - Búsqueda en tiempo real de Facultad, Salón/Aula, Profesor y Asignatura con botones de borrado instantáneo (✕).
   - Rango de horas personalizable.
 - **📄 Exportación a PDF**: Descarga del horario docente con membrete y formato horizontal para impresión.
+
+---
+
+## ⏱️ Vista "Franjas Disponibles"
+
+Pensada para responder rápido a la pregunta *"¿qué salón está libre y a qué horas?"*.
+
+- **Barra de disponibilidad por salón**: cada aula se dibuja como una línea de tiempo proporcional al rango horario filtrado. Los tramos verdes son libres, los rojos ocupados (muestran la materia). Al hacer clic se abre el detalle de la franja o de la reserva.
+- **Regla horaria superior** alineada con todas las barras para leer las horas de un vistazo.
+- **Chips de franjas libres**: cada tramo continuo libre se lista como `07:00 a 14:00 · 7h`, listo para copiar o dictar.
+- **Filtro por duración mínima**: muestra solo salones con franjas continuas de 2, 3 o 4 horas o más (los tramos más cortos quedan atenuados en la barra).
+- **Ordenamiento**: por más horas libres, por franja continua más larga o por nombre de aula.
+- **Solo aulas 100% libres**: casilla para ver únicamente los salones sin ninguna reserva en el rango.
+- **Resumen del filtro actual**: aulas con franja libre, total de horas libres y aulas totalmente disponibles.
+
+> Con el día en **"TODOS LOS DÍAS"** una franja se marca libre solo si el aula está desocupada en todos los días de la semana; la vista lo advierte para que selecciones un día concreto.
 
 ---
 

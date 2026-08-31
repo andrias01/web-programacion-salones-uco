@@ -227,3 +227,81 @@ export function formatExcelDate(val) {
 
   return str;
 }
+
+/**
+ * Formats an hour number to a short 24h label. Example: 7 -> "07:00", 14 -> "14:00"
+ */
+export function formatHourShort(hVal) {
+  const h = typeof hVal === 'number' ? hVal : parseInt(String(hVal).split(':')[0], 10);
+  if (isNaN(h)) return String(hVal);
+  return `${String(h).padStart(2, '0')}:00`;
+}
+
+/**
+ * Formats an hour number to a compact 12h label. Example: 7 -> "7am", 14 -> "2pm"
+ */
+export function formatHourCompact(hVal) {
+  const h = typeof hVal === 'number' ? hVal : parseInt(String(hVal).split(':')[0], 10);
+  if (isNaN(h)) return String(hVal);
+  const period = h >= 12 ? 'pm' : 'am';
+  let h12 = h % 12;
+  if (h12 === 0) h12 = 12;
+  return `${h12}${period}`;
+}
+
+/**
+ * Builds the hour-by-hour occupancy of a single classroom within [startHour, endHour).
+ * Returns [{ hour, free, reservations }]
+ */
+export function buildSlotAvailability(reservations, aula, startHour, endHour) {
+  const aulaUpper = String(aula).toUpperCase();
+  const slots = [];
+
+  for (let h = startHour; h < endHour; h++) {
+    const matching = reservations.filter(r =>
+      String(r.aula).toUpperCase() === aulaUpper &&
+      r.startHour < (h + 1) &&
+      r.endHour > h
+    );
+    slots.push({ hour: h, free: matching.length === 0, reservations: matching });
+  }
+
+  return slots;
+}
+
+/**
+ * Merges consecutive hour slots with the same state into continuous bands ("franjas").
+ * Returns [{ free, start, end, hours, reservations }]
+ */
+export function mergeSlotSegments(slots) {
+  const segments = [];
+
+  slots.forEach(slot => {
+    const last = segments[segments.length - 1];
+
+    if (last && last.free === slot.free && last.end === slot.hour) {
+      last.end = slot.hour + 1;
+      last.hours += 1;
+      slot.reservations.forEach(r => {
+        if (!last.reservations.some(x => x.id === r.id)) last.reservations.push(r);
+      });
+    } else {
+      segments.push({
+        free: slot.free,
+        start: slot.hour,
+        end: slot.hour + 1,
+        hours: 1,
+        reservations: [...slot.reservations]
+      });
+    }
+  });
+
+  return segments;
+}
+
+/**
+ * Extracts only the free bands from a segment list, optionally filtering by minimum length in hours.
+ */
+export function getFreeBands(segments, minHours = 1) {
+  return segments.filter(s => s.free && s.hours >= minHours);
+}

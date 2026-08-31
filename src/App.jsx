@@ -5,6 +5,7 @@ import { DropZoneBanner } from './components/DropZoneBanner';
 import { StatsGrid } from './components/StatsGrid';
 import { FiltersTopBar } from './components/FiltersTopBar';
 import { ViewMatrix } from './components/ViewMatrix';
+import { ViewAvailability } from './components/ViewAvailability';
 import { ViewCards } from './components/ViewCards';
 import { ViewTable } from './components/ViewTable';
 import { ViewSchedule } from './components/ViewSchedule';
@@ -46,7 +47,7 @@ export function App() {
   const [isSheetsModalOpen, setIsSheetsModalOpen] = useState(false);
 
   // Active View Tab
-  const [activeView, setActiveView] = useState('matrix'); // 'matrix' | 'cards' | 'table' | 'schedule'
+  const [activeView, setActiveView] = useState('matrix'); // 'matrix' | 'availability' | 'cards' | 'table' | 'schedule'
 
   // Filter State
   const [filters, setFilters] = useState({
@@ -326,6 +327,13 @@ export function App() {
     });
   };
 
+  const handleOpenFreeBand = (aula, day, band) => {
+    setModalState({
+      isOpen: true,
+      data: { type: 'freeBand', aula, day, band }
+    });
+  };
+
   const handleCloseModal = () => {
     setModalState({ isOpen: false, data: null });
   };
@@ -384,6 +392,13 @@ export function App() {
             </button>
             <button
               type="button"
+              className={`tab-btn ${activeView === 'availability' ? 'active' : ''}`}
+              onClick={() => setActiveView('availability')}
+            >
+              <i className="fa-solid fa-bars-progress"></i> Franjas Disponibles
+            </button>
+            <button
+              type="button"
               className={`tab-btn ${activeView === 'cards' ? 'active' : ''}`}
               onClick={() => setActiveView('cards')}
             >
@@ -425,6 +440,17 @@ export function App() {
             onOpenReservationList={handleOpenReservationList}
             onOpenFreeSlot={handleOpenFreeSlot}
             onOpenSheetsModal={() => setIsSheetsModalOpen(true)}
+          />
+        )}
+
+        {activeView === 'availability' && (
+          <ViewAvailability
+            reservations={filteredReservations}
+            rawCount={rawReservations.length}
+            filteredClassrooms={filteredClassrooms}
+            filters={filters}
+            onOpenFreeBand={handleOpenFreeBand}
+            onOpenReservationList={handleOpenReservationList}
           />
         )}
 

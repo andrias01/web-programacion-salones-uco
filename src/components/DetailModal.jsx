@@ -4,7 +4,7 @@ import { extractBlockFromClassroom, formatHour12 } from '../utils/scheduleHelper
 export function DetailModal({
   isOpen,
   onClose,
-  data // { type: 'single' | 'list' | 'free', reservation, resList, aula, day, tStr }
+  data // { type: 'single' | 'list' | 'free' | 'freeBand', reservation, resList, aula, day, tStr, band }
 }) {
   if (!isOpen || !data) return null;
 
@@ -18,7 +18,11 @@ export function DetailModal({
     <div className="modal-overlay active" onClick={handleOverlayClick}>
       <div className="modal-card">
         <div className="modal-header">
-          {data.type === 'free' ? (
+          {data.type === 'freeBand' ? (
+            <h3 style={{ color: 'var(--status-available)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <i className="fa-solid fa-bars-progress"></i> Franja Disponible
+            </h3>
+          ) : data.type === 'free' ? (
             <h3 style={{ color: 'var(--status-available)', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <i className="fa-solid fa-circle-check"></i> Espacio Libre Confirmado
             </h3>
@@ -35,6 +39,43 @@ export function DetailModal({
         </div>
 
         <div className="modal-body">
+          {/* Continuous Free Band Modal */}
+          {data.type === 'freeBand' && data.band && (
+            <div className="detail-grid">
+              <div className="detail-row full-width">
+                <span className="label">Estado del Espacio</span>
+                <span className="val" style={{ color: 'var(--status-available)' }}>
+                  <i className="fa-solid fa-check-double"></i> LIBRE DE FORMA CONTINUA ({data.band.hours} {data.band.hours === 1 ? 'HORA' : 'HORAS'})
+                </span>
+              </div>
+              <div className="detail-row">
+                <span className="label">Aula / Salón</span>
+                <span className="val">
+                  <span className="block-badge">{extractBlockFromClassroom(data.aula)}</span> {data.aula}
+                </span>
+              </div>
+              <div className="detail-row">
+                <span className="label">Día Seleccionado</span>
+                <span className="val">{data.day === 'TODOS' ? 'Todos los días' : (data.day || 'LUNES')}</span>
+              </div>
+              <div className="detail-row full-width">
+                <span className="label">Franja Libre</span>
+                <span className="val">
+                  {formatHour12(data.band.start)} a {formatHour12(data.band.end)}
+                </span>
+              </div>
+              <div className="detail-row full-width">
+                <span className="label">Bloques de 1 hora incluidos</span>
+                <span className="val" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  {Array.from({ length: data.band.hours }, (_, i) => {
+                    const h = data.band.start + i;
+                    return `${String(h).padStart(2, '0')}:00 - ${String(h + 1).padStart(2, '0')}:00`;
+                  }).join('  ·  ')}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Free Slot Modal */}
           {data.type === 'free' && (
             <div className="detail-grid">
