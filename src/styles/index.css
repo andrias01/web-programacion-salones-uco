@@ -1739,3 +1739,16 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(135deg, var(--status-available), #059669);
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
 }
+
+/* PDF export button inside the availability toolbar */
+.avail-pdf-btn {
+  align-self: stretch;
+  white-space: nowrap;
+}
+
+.avail-pdf-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

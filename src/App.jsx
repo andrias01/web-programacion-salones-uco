@@ -465,6 +465,7 @@ export function App() {
             filters={filters}
             onOpenFreeBand={handleOpenFreeBand}
             onOpenReservationList={handleOpenReservationList}
+            onNotify={showToast}
           />
         )}
 

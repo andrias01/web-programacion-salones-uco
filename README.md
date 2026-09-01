@@ -43,6 +43,7 @@ Pensada para responder rápido a la pregunta *"¿qué salón está libre y a qu�
 - **Ordenamiento**: por más horas libres, por franja continua más larga o por nombre de aula.
 - **Solo aulas 100% libres**: casilla para ver únicamente los salones sin ninguna reserva en el rango.
 - **Resumen del filtro actual**: aulas con franja libre, total de horas libres y aulas totalmente disponibles.
+- **Descargar PDF**: genera un reporte en A4 horizontal con exactamente los salones que estén listados en ese momento (todos, o los que dejen los filtros). Incluye encabezado con la fecha de generación, tarjetas de resumen, el detalle de los filtros aplicados y una tabla por salón con: bloque, aula, horas libres y % disponible, línea de tiempo a color, franjas disponibles en texto y la ocupación (horario · materia · docente).
 
 > Con el día en **"TODOS LOS DÍAS"** una franja se marca libre solo si el aula está desocupada en todos los días de la semana; la vista lo advierte para que selecciones un día concreto.
 

@@ -8,6 +8,7 @@ import {
   mergeSlotSegments,
   getFreeBands
 } from '../utils/scheduleHelper';
+import { exportAvailabilityPDF } from '../utils/availabilityPdf';
 
 const MIN_DURATION_OPTIONS = [
   { value: 1, label: 'Cualquier franja' },
@@ -28,11 +29,13 @@ export function ViewAvailability({
   filteredClassrooms = [],
   filters,
   onOpenFreeBand,
-  onOpenReservationList
+  onOpenReservationList,
+  onNotify
 }) {
   const [minHours, setMinHours] = useState(1);
   const [sortBy, setSortBy] = useState('free-desc');
   const [onlyFullyFree, setOnlyFullyFree] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
   const totalHours = Math.max(0, filters.endHour - filters.startHour);
 
@@ -84,6 +87,34 @@ export function ViewAvailability({
     const withBand = availability.filter(r => getFreeBands(r.segments, minHours).length > 0).length;
     return { totalFreeHours, fullyFree, withBand };
   }, [availability, minHours]);
+
+  // PDF report of exactly what the view is showing right now
+  const handleExportPDF = () => {
+    if (visibleRooms.length === 0 || isExporting) return;
+
+    const notify = (msg, type) => { if (onNotify) onNotify(msg, type); };
+    setIsExporting(true);
+    notify(`Generando PDF de ${visibleRooms.length} ${visibleRooms.length === 1 ? 'aula' : 'aulas'}...`, 'info');
+
+    exportAvailabilityPDF({
+      rooms: visibleRooms,
+      filters,
+      options: { minHours, onlyFullyFree, sortBy },
+      summary: {
+        totalFreeHours: visibleRooms.reduce((acc, r) => acc + r.freeHours, 0),
+        fullyFree: visibleRooms.filter(r => r.busyHours === 0).length,
+        withBand: visibleRooms.length
+      },
+      onDone: () => {
+        setIsExporting(false);
+        notify('Reporte de disponibilidad descargado', 'success');
+      },
+      onError: (message) => {
+        setIsExporting(false);
+        notify(message, 'error');
+      }
+    });
+  };
 
   // Hour ruler ticks
   const ticks = useMemo(() => {
@@ -167,6 +198,21 @@ export function ViewAvailability({
             />
             <span>Solo aulas 100% libres</span>
           </label>
+
+          <button
+            type="button"
+            className="btn btn-primary avail-pdf-btn"
+            onClick={handleExportPDF}
+            disabled={isExporting || visibleRooms.length === 0}
+            title={
+              visibleRooms.length === 0
+                ? 'No hay aulas para exportar con los filtros actuales'
+                : `Descargar PDF con las ${visibleRooms.length} aulas listadas`
+            }
+          >
+            <i className={`fa-solid ${isExporting ? 'fa-spinner fa-spin' : 'fa-file-pdf'}`}></i>
+            <span>{isExporting ? 'Generando...' : `Descargar PDF (${visibleRooms.length})`}</span>
+          </button>
         </div>
       </div>
 
