@@ -62,7 +62,7 @@ export function App() {
     profesor: '',
     materia: '',
     startHour: 7,
-    endHour: 23
+    endHour: 22
   });
 
   // Modal State
@@ -235,7 +235,7 @@ export function App() {
       profesor: '',
       materia: '',
       startHour: 7,
-      endHour: 23
+      endHour: 22
     });
   };
 

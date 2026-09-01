@@ -625,6 +625,15 @@ h1, h2, h3, h4, h5, h6 {
   overflow-x: auto;
 }
 
+/* Solo la matriz: scroll propio para que la fila de horas quede anclada al desplazarse.
+   No se aplica a .table-responsive en general porque esa clase también envuelve
+   el horario del profesor (#pdfPrintArea), que debe exportarse completo. */
+.matrix-scroll {
+  overflow: auto;
+  max-height: calc(100vh - 130px);
+  overscroll-behavior: contain;
+}
+
 .matrix-table {
   width: 100%;
   border-collapse: collapse;
@@ -632,7 +641,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .matrix-table th {
-  background: rgba(11, 15, 25, 0.9);
+  /* Opaco: la fila queda fija sobre las celdas que pasan por debajo */
+  background: #0d1322;
   padding: 10px 8px;
   text-align: center;
   font-weight: 600;
@@ -642,13 +652,15 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   z-index: 10;
   white-space: nowrap;
+  box-shadow: inset 0 -2px 0 rgba(56, 189, 248, 0.28);
 }
 
 .matrix-table th.col-aula {
   text-align: left;
   min-width: 130px;
   left: 0;
-  z-index: 11;
+  /* Esquina superior izquierda: por encima de la fila de horas y de la columna de aulas */
+  z-index: 12;
   background: #0d1322;
 }
 
@@ -662,7 +674,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cell-aula {
-  background: rgba(11, 15, 25, 0.7);
+  /* Opaco: la columna queda fija al desplazarse en horizontal */
+  background: #101728;
   position: sticky;
   left: 0;
   z-index: 5;
@@ -1751,4 +1764,11 @@ h1, h2, h3, h4, h5, h6 {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* Altura del área desplazable de la matriz en pantallas pequeñas */
+@media (max-width: 900px) {
+  .matrix-scroll {
+    max-height: calc(100vh - 90px);
+  }
 }

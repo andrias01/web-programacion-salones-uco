@@ -54,7 +54,7 @@ export function ViewMatrix({
 
   return (
     <div className="matrix-card">
-      <div className="table-responsive">
+      <div className="table-responsive matrix-scroll">
         <table className="matrix-table">
           <thead>
             <tr>

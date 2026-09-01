@@ -233,7 +233,7 @@ export function FiltersTopBar({
               value={`${String(filters.startHour).padStart(2, '0')}:00`}
               onChange={(e) => onFilterChange('startHour', parseInt(e.target.value.split(':')[0], 10))}
             >
-              {[7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map(h => {
+              {[7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21].map(h => {
                 const h24 = `${String(h).padStart(2, '0')}:00`;
                 const h12 = h % 12 === 0 ? 12 : h % 12;
                 const period = h >= 12 ? 'pm' : 'am';
@@ -247,7 +247,7 @@ export function FiltersTopBar({
               value={`${String(filters.endHour).padStart(2, '0')}:00`}
               onChange={(e) => onFilterChange('endHour', parseInt(e.target.value.split(':')[0], 10))}
             >
-              {[23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8].map(h => {
+              {[22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8].map(h => {
                 const h24 = `${String(h).padStart(2, '0')}:00`;
                 const h12 = h % 12 === 0 ? 12 : h % 12;
                 const period = h >= 12 ? 'pm' : 'am';
